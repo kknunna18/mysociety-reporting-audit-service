@@ -5,7 +5,8 @@ Spring Boot 3 / Java 21 tenant-scoped reporting and audit read service. It serve
 ## Run locally
 
 1. Copy `.env.example` to `.env` and provide a strong `JWT_HS256_SECRET` (at least 32 characters).
-2. Start PostgreSQL with `docker compose up -d postgres`, then apply the authoritative schema from the identity-service repository.
+2. Start PostgreSQL with `docker compose up -d postgres`, then apply
+   `database\migrations\V1__reporting_audit_schema.sql` with `psql -v ON_ERROR_STOP=1 -U postgres -d mysociety -f database\migrations\V1__reporting_audit_schema.sql`.
 3. Run `gradlew.bat bootRun --args="--spring.profiles.active=local"`.
 
 The JWT resource server accepts only HS256 tokens with issuer `mysociety-identity`. A valid `sub` and
@@ -24,10 +25,15 @@ Permissions are read from the `permissions` JWT claim: `AUDIT_VIEW`, `REPORT_VIE
 
 ## Schema boundary and events
 
-The authoritative DDL provides `audit_events`, `export_requests`, `idempotency_records`, and the views
-`v_unit_balances`, `v_collection_summary_monthly`, `v_complaint_sla_status`, and `v_current_visitors`.
-It does **not** provide separate materialized/reporting projection table DDL. This service deliberately does not
-invent such tables: it consumes those views and leaves the versioned Kafka event boundary disabled by default.
+The versioned service migration provides `audit_events`, `export_requests`, and `idempotency_records`; see
+[`database/README.md`](database/README.md) for schema ownership, append-only audit behavior, and deployment
+instructions. It intentionally omits cross-service foreign keys. Society and Identity UUIDs are validated through
+authenticated APIs and trusted domain events.
+
+The canonical DDL provides `v_unit_balances`, `v_collection_summary_monthly`, `v_complaint_sla_status`, and
+`v_current_visitors`, but their source tables are not owned by this service. This service deliberately does not
+invent materialized or reporting projection tables: provision the canonical views with their source tables before
+enabling report endpoints. The versioned Kafka event boundary remains disabled by default.
 When `EVENT_CONSUMER_ENABLED=true`, event IDs are claimed idempotently in the supplied `idempotency_records`
 table before a supported projection updater runs. No raw event payloads are logged.
 

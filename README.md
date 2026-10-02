@@ -5,7 +5,8 @@ Spring Boot 3 / Java 21 tenant-scoped reporting and audit read service. It serve
 ## Run locally
 
 1. Copy `.env.example` to `.env` and provide a strong `JWT_HS256_SECRET` (at least 32 characters).
-2. Start PostgreSQL with `docker compose up -d postgres`, then apply the authoritative schema from the identity-service repository.
+2. Start PostgreSQL with `docker compose up -d postgres`, then apply the authoritative schema from the identity-service
+   repository.
 3. Run `gradlew.bat bootRun --args="--spring.profiles.active=local"`.
 
 The JWT resource server accepts only HS256 tokens with issuer `mysociety-identity`. A valid `sub` and
@@ -17,8 +18,10 @@ a society identifier.
 Swagger UI is at `/api/v1/swagger-ui.html`; OpenAPI is at `/api/v1/openapi`.
 
 * `GET /api/v1/audit-events` filters and pages append-only audit events.
-* `GET /api/v1/reports/{unit-balances,collections/monthly,complaints/sla,visitors/current}` reads supplied reporting views.
-* `POST /api/v1/exports` queues an export; `GET /api/v1/exports/{id}` and `/download` expose tenant-safe status/download metadata.
+* `GET /api/v1/reports/{unit-balances,collections/monthly,complaints/sla,visitors/current}` reads supplied reporting
+  views.
+* `POST /api/v1/exports` queues an export; `GET /api/v1/exports/{id}` and `/download` expose tenant-safe status/download
+  metadata.
 
 Permissions are read from the `permissions` JWT claim: `AUDIT_VIEW`, `REPORT_VIEW`, and `REPORT_EXPORT`.
 

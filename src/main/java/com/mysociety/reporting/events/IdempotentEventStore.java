@@ -2,6 +2,7 @@ package com.mysociety.reporting.events;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class IdempotentEventStore {
     private final NamedParameterJdbcTemplate jdbc;
-    public IdempotentEventStore(NamedParameterJdbcTemplate jdbc) { this.jdbc = jdbc; }
+
+    public IdempotentEventStore(NamedParameterJdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
+
     public boolean claim(VersionedEventEnvelope event) {
         String key = event.eventId().toString();
         MapSqlParameterSource parameters = new MapSqlParameterSource()

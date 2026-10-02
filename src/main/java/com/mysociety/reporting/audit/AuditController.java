@@ -1,8 +1,10 @@
 package com.mysociety.reporting.audit;
 
 import io.swagger.v3.oas.annotations.Operation;
+
 import java.time.Instant;
 import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/audit-events")
 public class AuditController {
     private final AuditQueryService service;
-    public AuditController(AuditQueryService service) { this.service = service; }
+
+    public AuditController(AuditQueryService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Query append-only audit events for the authenticated society")
     @GetMapping

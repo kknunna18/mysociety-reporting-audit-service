@@ -3,6 +3,7 @@ package com.mysociety.reporting.security;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

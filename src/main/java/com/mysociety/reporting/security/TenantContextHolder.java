@@ -1,6 +1,7 @@
 package com.mysociety.reporting.security;
 
 import java.util.UUID;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;

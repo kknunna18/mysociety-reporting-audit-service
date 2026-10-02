@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -31,16 +32,50 @@ public class AuditEvent {
     @Column(name = "occurred_at")
     private Instant occurredAt;
 
-    protected AuditEvent() { }
-    public UUID getId() { return id; }
-    public UUID getSocietyId() { return societyId; }
-    public UUID getActorUserId() { return actorUserId; }
-    public String getActorType() { return actorType; }
-    public String getAction() { return action; }
-    public String getModuleName() { return moduleName; }
-    public String getEntityType() { return entityType; }
-    public UUID getEntityId() { return entityId; }
-    public String getOutcome() { return outcome; }
-    public String getCorrelationId() { return correlationId; }
-    public Instant getOccurredAt() { return occurredAt; }
+    protected AuditEvent() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public UUID getSocietyId() {
+        return societyId;
+    }
+
+    public UUID getActorUserId() {
+        return actorUserId;
+    }
+
+    public String getActorType() {
+        return actorType;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public String getEntityType() {
+        return entityType;
+    }
+
+    public UUID getEntityId() {
+        return entityId;
+    }
+
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
 }

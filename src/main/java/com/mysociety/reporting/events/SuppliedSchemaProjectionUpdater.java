@@ -8,6 +8,7 @@ public class SuppliedSchemaProjectionUpdater implements ProjectionUpdater {
     public boolean supports(String eventType, int version) {
         return false;
     }
+
     @Override
     public void apply(VersionedEventEnvelope event) {
         throw new UnsupportedOperationException("No event-managed projection table is present in the supplied DDL");

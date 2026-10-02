@@ -18,10 +18,12 @@ public class ApiExceptionHandler {
                 .map(error -> java.util.Map.of("field", error.getField(), "message", error.getDefaultMessage())).toList());
         return detail;
     }
+
     @ExceptionHandler(AccessDeniedException.class)
     ProblemDetail denied(AccessDeniedException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, "Access is denied");
     }
+
     @ExceptionHandler(ResponseStatusException.class)
     ProblemDetail status(ResponseStatusException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.valueOf(exception.getStatusCode().value()), exception.getReason());

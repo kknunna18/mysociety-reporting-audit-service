@@ -11,7 +11,7 @@ spring:
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${JPA_HBM_DDL_AUTO:update}
     properties:
       hibernate:
         default_schema: mysociety
@@ -46,4 +46,4 @@ springdoc:
 mysociety:
   security:
     issuer: mysociety-identity
-    hs256-secret: ${JWT_HS256_SECRET}
+    hs256-secret: ${JWT_HS256_SECRET:012345678901234567890123456789012345}
